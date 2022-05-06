@@ -12,7 +12,7 @@ createWorkout = (newWorkout) => {
   const workoutToCreate = {
     id: uuid(),
     ...newWorkout,
-    createdAt: new Date().toLocaleString("en-US", {
+    createdAt: new Date().toLocaleString("en-EG", {
       timeZone: "UTC",
     }),
     updatedAt: new Date().toLocaleString("en-EG", {

@@ -63,27 +63,6 @@
         "The first three rounds might feel terrible, but stick to it",
         "RX Weights: 205lb/145lb"
       ]
-    },
-    {
-      "id": "1aabe0f7-428f-4c03-b5c5-91384d6bfefb",
-      "name": "Heavy DT 2",
-      "mode": "5 Rounds For Time",
-      "equipment": [
-        "barbell",
-        "rope"
-      ],
-      "exercises": [
-        "12 deadlifts",
-        "9 hang power cleans",
-        "6 push jerks"
-      ],
-      "trainerTips": [
-        "Aim for unbroken push jerks",
-        "The first three rounds might feel terrible, but stick to it",
-        "RX Weights: 205lb/145lb"
-      ],
-      "createdAt": "5/6/2022, 4:50:06 PM",
-      "updatedAt": "5/6/2022, 4:50:06 PM"
     }
   ]
 }
