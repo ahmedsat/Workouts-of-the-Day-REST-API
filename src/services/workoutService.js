@@ -26,9 +26,23 @@ createWorkout = (newWorkout) => {
 
   return createdWorkout;
 };
-updateWorkout = () => {
-  return;
+
+updateWorkout = (id, changes) => {
+  const workoutToUpdate = workoutDB.getWorkout(id);
+  if (!workoutToUpdate) {
+    return null;
+  }
+  const updatedWorkout = {
+    ...workoutToUpdate,
+    ...changes,
+    updatedAt: new Date().toLocaleString("en-EG", {
+      timeZone: "UTC",
+    }),
+  };
+  const updatedWorkoutInDB = workoutDB.updateWorkout(id, updatedWorkout);
+  return updatedWorkoutInDB;
 };
+
 deleteWorkout = () => {
   return;
 };

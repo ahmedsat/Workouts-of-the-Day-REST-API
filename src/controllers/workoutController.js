@@ -48,9 +48,23 @@ createWorkout = (req, res) => {
 };
 
 updateWorkout = (req, res) => {
-  const updatedWorkout = workoutService.updateWorkout();
-  res.send("Update a workout");
+  const {
+    body,
+    params: { id },
+  } = req;
+  if (!id) {
+    return res.status(400).json({
+      status: "error",
+      message: "Missing id",
+    });
+  }
+  const updatedWorkout = workoutService.updateWorkout(id, body);
+  res.status(200).json({
+    status: "success",
+    data: updatedWorkout,
+  });
 };
+
 deleteWorkout = (req, res) => {
   const deletedWorkout = workoutService.deleteWorkout();
   res.send("Delete a workout");

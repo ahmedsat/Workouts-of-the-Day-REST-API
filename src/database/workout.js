@@ -29,8 +29,19 @@ const createWorkout = (newWorkout) => {
   return newWorkout;
 };
 
+const updateWorkout = (id, changes) => {
+  const indexOfWorkout = DB.workouts.findIndex((workout) => workout.id === id);
+  if (indexOfWorkout === -1) {
+    return null;
+  }
+  DB.workouts[indexOfWorkout] = changes;
+  saveToJSON(DB, __dirname + "/db.json");
+  return changes;
+};
+
 module.exports = {
   getAllWorkouts,
   createWorkout,
   getWorkout,
+  updateWorkout,
 };
