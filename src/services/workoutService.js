@@ -5,9 +5,12 @@ getAllWorkouts = () => {
   const allWorkouts = workoutDB.getAllWorkouts();
   return allWorkouts;
 };
-getWorkout = () => {
-  return;
+
+getWorkout = (id) => {
+  const workout = workoutDB.getWorkout(id);
+  return workout;
 };
+
 createWorkout = (newWorkout) => {
   const workoutToCreate = {
     id: uuid(),

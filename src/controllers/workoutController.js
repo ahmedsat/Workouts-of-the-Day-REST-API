@@ -6,8 +6,17 @@ getAllWorkouts = (req, res) => {
 };
 
 getWorkout = (req, res) => {
-  const workout = workoutService.getWorkout();
-  res.send("Get a workout" + req.params.id);
+  const { id } = req.params;
+  if (!id) {
+    res.status(400).json({ status: "error", message: "Missing id" });
+  } else {
+    const workout = workoutService.getWorkout(id);
+    if (workout) {
+      res.status(200).json({ status: "success", data: workout });
+    } else {
+      res.status(404).json({ status: "error", message: "Workout not found" });
+    }
+  }
 };
 
 createWorkout = (req, res) => {

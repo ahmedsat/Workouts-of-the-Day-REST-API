@@ -5,6 +5,15 @@ const getAllWorkouts = () => {
   return DB.workouts;
 };
 
+const getWorkout = (id) => {
+  const workout = DB.workouts.find((workout) => workout.id === id);
+  if (workout) {
+    return workout;
+  } else {
+    return null;
+  }
+};
+
 const createWorkout = (newWorkout) => {
   const workoutExists = DB.workouts.find(
     (workout) => workout.name === newWorkout.name
@@ -23,4 +32,5 @@ const createWorkout = (newWorkout) => {
 module.exports = {
   getAllWorkouts,
   createWorkout,
+  getWorkout,
 };
