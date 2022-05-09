@@ -43,8 +43,13 @@ updateWorkout = (id, changes) => {
   return updatedWorkoutInDB;
 };
 
-deleteWorkout = () => {
-  return;
+deleteWorkout = (id) => {
+  const workoutToDelete = workoutDB.getWorkout(id);
+  if (!workoutToDelete) {
+    return null;
+  }
+  const deletedWorkout = workoutDB.deleteWorkout(id);
+  return deletedWorkout;
 };
 
 module.exports = {

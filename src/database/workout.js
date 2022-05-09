@@ -39,9 +39,20 @@ const updateWorkout = (id, changes) => {
   return changes;
 };
 
+const deleteWorkout = (id) => {
+  const indexOfWorkout = DB.workouts.findIndex((workout) => workout.id === id);
+  if (indexOfWorkout === -1) {
+    return null;
+  }
+  const deletedWorkout = DB.workouts.splice(indexOfWorkout, 1);
+  saveToJSON(DB, __dirname + "/db.json");
+  return deletedWorkout[0];
+};
+
 module.exports = {
   getAllWorkouts,
   createWorkout,
   getWorkout,
   updateWorkout,
+  deleteWorkout,
 };

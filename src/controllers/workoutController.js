@@ -66,9 +66,20 @@ updateWorkout = (req, res) => {
 };
 
 deleteWorkout = (req, res) => {
-  const deletedWorkout = workoutService.deleteWorkout();
-  res.send("Delete a workout");
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({
+      status: "error",
+      message: "Missing id",
+    });
+  }
+  const deletedWorkout = workoutService.deleteWorkout(id);
+  res.status(200).json({
+    status: "success",
+    data: deletedWorkout,
+  });
 };
+
 module.exports = {
   getAllWorkouts,
   getWorkout,
