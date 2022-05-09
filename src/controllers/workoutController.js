@@ -1,21 +1,30 @@
 const workoutService = require("../services/workoutService");
 
 getAllWorkouts = (req, res) => {
-  const allWorkouts = workoutService.getAllWorkouts();
-  res.status(200).json({ status: "success", data: allWorkouts });
+  try {
+    const allWorkouts = workoutService.getAllWorkouts();
+    res.status(200).json({ status: "success", data: allWorkouts });
+  } catch (error) {
+    res.status(error?.status || 500).json({
+      status: "error",
+      data: error?.message || "Internal server error",
+    });
+  }
 };
 
 getWorkout = (req, res) => {
   const { id } = req.params;
   if (!id) {
-    res.status(400).json({ status: "error", message: "Missing id" });
-  } else {
+    return res.status(400).json({ status: "error", message: "Missing id" });
+  }
+  try {
     const workout = workoutService.getWorkout(id);
-    if (workout) {
-      res.status(200).json({ status: "success", data: workout });
-    } else {
-      res.status(404).json({ status: "error", message: "Workout not found" });
-    }
+    return res.status(200).json({ status: "success", data: workout });
+  } catch (error) {
+    return res.status(error?.status || 500).json({
+      status: "error",
+      data: error?.message || "Internal server error",
+    });
   }
 };
 
@@ -40,11 +49,18 @@ createWorkout = (req, res) => {
     exercises: body.exercises,
     trainerTips: body.trainerTips,
   };
-  const createdWorkout = workoutService.createWorkout(newWorkout);
-  res.status(201).json({
-    status: "success",
-    data: createdWorkout,
-  });
+  try {
+    const createdWorkout = workoutService.createWorkout(newWorkout);
+    res.status(201).json({
+      status: "success",
+      data: createdWorkout,
+    });
+  } catch (error) {
+    res.status(error?.status || 500).json({
+      status: "error",
+      data: error?.message || "Internal server error",
+    });
+  }
 };
 
 updateWorkout = (req, res) => {
@@ -58,11 +74,18 @@ updateWorkout = (req, res) => {
       message: "Missing id",
     });
   }
-  const updatedWorkout = workoutService.updateWorkout(id, body);
-  res.status(200).json({
-    status: "success",
-    data: updatedWorkout,
-  });
+  try {
+    const updatedWorkout = workoutService.updateWorkout(id, body);
+    res.status(200).json({
+      status: "success",
+      data: updatedWorkout,
+    });
+  } catch (error) {
+    res.status(error?.status || 500).json({
+      status: "error",
+      data: error?.message || "Internal server error",
+    });
+  }
 };
 
 deleteWorkout = (req, res) => {
@@ -73,11 +96,18 @@ deleteWorkout = (req, res) => {
       message: "Missing id",
     });
   }
-  const deletedWorkout = workoutService.deleteWorkout(id);
-  res.status(200).json({
-    status: "success",
-    data: deletedWorkout,
-  });
+  try {
+    const deletedWorkout = workoutService.deleteWorkout(id);
+    res.status(200).json({
+      status: "success",
+      data: deletedWorkout,
+    });
+  } catch (error) {
+    res.status(error?.status || 500).json({
+      status: "error",
+      data: error?.message || "Internal server error",
+    });
+  }
 };
 
 module.exports = {

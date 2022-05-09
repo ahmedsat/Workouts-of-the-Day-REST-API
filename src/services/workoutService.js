@@ -2,13 +2,21 @@ const { v4: uuid } = require("uuid");
 const workoutDB = require("../database/workout.js");
 
 getAllWorkouts = () => {
-  const allWorkouts = workoutDB.getAllWorkouts();
-  return allWorkouts;
+  try {
+    const allWorkouts = workoutDB.getAllWorkouts();
+    return allWorkouts;
+  } catch (error) {
+    throw error;
+  }
 };
 
 getWorkout = (id) => {
-  const workout = workoutDB.getWorkout(id);
-  return workout;
+  try {
+    const workout = workoutDB.getWorkout(id);
+    return workout;
+  } catch (error) {
+    throw error;
+  }
 };
 
 createWorkout = (newWorkout) => {
@@ -22,34 +30,41 @@ createWorkout = (newWorkout) => {
       timeZone: "UTC",
     }),
   };
-  const createdWorkout = workoutDB.createWorkout(workoutToCreate);
 
-  return createdWorkout;
+  try {
+    const createdWorkout = workoutDB.createWorkout(workoutToCreate);
+    return createdWorkout;
+  } catch (error) {
+    throw error;
+  }
 };
 
 updateWorkout = (id, changes) => {
-  const workoutToUpdate = workoutDB.getWorkout(id);
-  if (!workoutToUpdate) {
-    return null;
+  try {
+    const workoutToUpdate = workoutDB.getWorkout(id);
+
+    const updatedWorkout = {
+      ...workoutToUpdate,
+      ...changes,
+      updatedAt: new Date().toLocaleString("en-EG", {
+        timeZone: "UTC",
+      }),
+    };
+
+    const updatedWorkoutFromDB = workoutDB.updateWorkout(id, updatedWorkout);
+    return updatedWorkoutFromDB;
+  } catch (error) {
+    throw error;
   }
-  const updatedWorkout = {
-    ...workoutToUpdate,
-    ...changes,
-    updatedAt: new Date().toLocaleString("en-EG", {
-      timeZone: "UTC",
-    }),
-  };
-  const updatedWorkoutInDB = workoutDB.updateWorkout(id, updatedWorkout);
-  return updatedWorkoutInDB;
 };
 
 deleteWorkout = (id) => {
-  const workoutToDelete = workoutDB.getWorkout(id);
-  if (!workoutToDelete) {
-    return null;
+  try {
+    const deletedWorkout = workoutDB.deleteWorkout(id);
+    return deletedWorkout;
+  } catch (error) {
+    throw error;
   }
-  const deletedWorkout = workoutDB.deleteWorkout(id);
-  return deletedWorkout;
 };
 
 module.exports = {
